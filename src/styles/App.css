@@ -1,0 +1,35 @@
+.App {
+  max-width: 600px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
+#navigation {
+  margin-bottom: 2rem;
+}
+
+#navigation button {
+  margin-right: 1rem;
+}
+
+#slide {
+  border: 1px solid #eee;
+  padding: 1rem;
+  min-height: 300px;
+}
+
+button {
+  min-width: 80px;
+}
+
+.container {
+  height: 200px;
+  width: 200px;
+  background-color: blueviolet;
+
+  display: inline-block;
+  color: white;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 10px;
+}
