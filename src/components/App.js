@@ -38,6 +38,9 @@ const App = () => {
   const handleRestartClick = () => {
     setSlideIndex(0);
   }
+  
+  
+  
   return (
     <><h1 id="heading">Amazon Prime: Trending</h1>
       <div>
