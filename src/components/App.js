@@ -1,50 +1,60 @@
-import React, { Component, useState } from "react";
+import React, {useState, useEffect} from "react";
 import '../styles/App.css';
-import Data from '../data';
 
-const App = ({ slides }) => {
-  // console.log(slides);
+const App = ({slides}) => {
+  const [slideIndex, setSlideIndex] = useState(0);
+  const [prevFlag, setPrevFlag] = useState(true);
+  const [nextFlag, setNextFlag] = useState(false);
+  const [restartFlag, setRestartFlag] = useState(true);
 
-  const [index, setIndex] = useState(0);
+  useEffect(() => {
+    // if current slide is the first one
+    if(slideIndex === 0) {
+      setPrevFlag(true);
+      setRestartFlag(true);
+    } else {
+      setPrevFlag(false);
+      setRestartFlag(false);
+    }
 
-  let updated = slides.map((element, index) => {
-    return <slides className="container" key={element.title + index}>
-      <h1 data-testid="title" > {element.title}</h1> <br />
-      <p data-testid="text"> {element.text}</p>
+    // if current slide is the last one
+    if(slideIndex === slides.length - 1) {
+      setNextFlag(true);
+    } else {
+      setNextFlag(false);
+    }
 
-    </slides>
-  })
+  }, [slideIndex])
 
-  // for iterating in updated
-
-
-
-
-  let indexcondition = index === 0;
-  // console.log(indexcondition);
-
-  // const [images, setImages] = useState(slides[slides]);
-  const goprev = (event) => {
-    index == 0 ? event.target.disable : "";
-    setIndex(() => index - 1);
+  const handlePrevClick = () => {
+      
+      setSlideIndex((prevState) => prevState - 1);
   }
 
-  const gonext = () => {
-
-    // console.log(index);
-    setIndex(() => index + 1);
+  const handleNextClick = () => {
+      setSlideIndex((prevState) => prevState + 1);
   }
 
-  const restart1 = () => {
-
-    setIndex(() => 0);
+  const handleRestartClick = () => {
+    setSlideIndex(0);
   }
+
+
+
   return (
     <>
-      <button onClick={goprev} data-testid="button-prev" disabled={index == 0}  >Prev</button>
-      {updated[index]}
-      <button onClick={gonext} data-testid="button-next" disabled={index == slides.length - 1}>Next</button>
-      <button onClick={restart1} data-testid="button-restart" disabled={index == 0} > Restart</button>
+      <h1 id="heading">Amazon Prime: Trending</h1>
+      <div>
+        <div>
+          <h1 data-testid="title">{slides[slideIndex].title}</h1>
+          <p data-testid="text">{slides[slideIndex].text}</p>
+        </div>
+        
+        <button data-testid="button-prev" onClick={handlePrevClick} disabled={prevFlag}>Prev</button>
+        <button data-testid="button-next" onClick={handleNextClick} disabled={nextFlag}>Next</button>
+        <button data-testid="button-restart" onClick={handleRestartClick} disabled={restartFlag}>Restart</button>
+    
+      </div>
     </>
   )
 }
